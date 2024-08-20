@@ -20,7 +20,7 @@ const applicationSchema = new mongoose.Schema({
   phone: {
     type: Number,
     required: [true, "Please enter your Phone Number!"],
-  },
+  }, 
   address: {
     type: String,
     required: [true, "Please enter your Address!"],

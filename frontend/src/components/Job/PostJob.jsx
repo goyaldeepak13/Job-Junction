@@ -34,24 +34,24 @@ const PostJob = () => {
         "http://localhost:4000/api/v1/job/post",
         fixedSalary.length >= 4
           ? {
-              title,
-              description,
-              category,
-              country,
-              city,
-              location,
-              fixedSalary,
-            }
+            title,
+            description,
+            category,
+            country,
+            city,
+            location,
+            fixedSalary,
+          }
           : {
-              title,
-              description,
-              category,
-              country,
-              city,
-              location,
-              salaryFrom,
-              salaryTo,
-            },
+            title,
+            description,
+            category,
+            country,
+            city,
+            location,
+            salaryFrom,
+            salaryTo,
+          },
         {
           withCredentials: true,
           headers: {

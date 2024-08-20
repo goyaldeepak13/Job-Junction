@@ -10,5 +10,5 @@ export const dbConnection = () => {
     })
     .catch((err) => {
       console.log(`Some Error occured. ${err}`);
-    });
+    }); 
 };

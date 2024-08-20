@@ -6,7 +6,7 @@ const router = express.Router();
 
 router.post("/register", register);
 router.post("/login", login);
-router.get("/logout", isAuthenticated, logout);
+router.get("/logout", isAuthenticated, logout); // The isAuthenticated middleware verifies the token's validity.
 router.get("/getuser", isAuthenticated, getUser);
 
 export default router;

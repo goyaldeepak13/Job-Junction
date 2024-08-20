@@ -18,19 +18,20 @@ import NotFound from "./components/NotFound/NotFound";
 import MyJobs from "./components/Job/MyJobs";
 
 const App = () => {
-  const { isAuthorized, setIsAuthorized, setUser } = useContext(Context);
-  useEffect(() => {
+  const { isAuthorized, setIsAuthorized, setUser } = useContext(Context); // usecontext->  A hook to consume context values.//This hook is used to access the context values provided by Context.Provider// A React hook used to consume data from a context. It allows components to access the context values provided by the nearest Context.Provider.
+  useEffect(() => { // useeffect ->This hook runs a side effect function when the component mounts or when the isAuthorized state changes.
     const fetchUser = async () => {
       try {
         const response = await axios.get(
           "http://localhost:4000/api/v1/user/getuser",
           {
-            withCredentials: true,
+            withCredentials: true, // This option indicates that the request should include credentials, such as cookies or authentication headers.
           }
         );
         setUser(response.data.user);
         setIsAuthorized(true);
-      } catch (error) {
+      }
+      catch (error) {
         setIsAuthorized(false);
       }
     };

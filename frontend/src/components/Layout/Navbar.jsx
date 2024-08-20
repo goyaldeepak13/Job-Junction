@@ -15,13 +15,14 @@ const Navbar = () => {
       const response = await axios.get(
         "http://localhost:4000/api/v1/user/logout",
         {
-          withCredentials: true,
+          withCredentials: true,// This option indicates that the request should include credentials, such as cookies or authentication headers.
         }
       );
       toast.success(response.data.message);
       setIsAuthorized(false);
       navigateTo("/login");
-    } catch (error) {
+    }
+    catch (error) {
       toast.error(error.response.data.message), setIsAuthorized(true);
     }
   };
@@ -46,20 +47,20 @@ const Navbar = () => {
           <li>
             <Link to={"/applications/me"} onClick={() => setShow(false)}>
               {user && user.role === "Employer"
-                ? "APPLICANT'S APPLICATIONS"
-                : "MY APPLICATIONS"}
+                ? "APPLICATIONS"
+                : "APPLICATIONS"}
             </Link>
           </li>
           {user && user.role === "Employer" ? (
             <>
               <li>
                 <Link to={"/job/post"} onClick={() => setShow(false)}>
-                  POST NEW JOB
+                  POST
                 </Link>
               </li>
               <li>
                 <Link to={"/job/me"} onClick={() => setShow(false)}>
-                  VIEW YOUR JOBS
+                  VIEW
                 </Link>
               </li>
             </>

@@ -11,15 +11,15 @@ export const postApplication = catchAsyncErrors(async (req, res, next) => {
       new ErrorHandler("Employer not allowed to access this resource.", 400)
     );
   }
-  if (!req.files || Object.keys(req.files).length === 0) {
+  if (!req.files || Object.keys(req.files).length === 0) { // if file is not present then we will throw error
     return next(new ErrorHandler("Resume File Required!", 400));
   }
 
   const { resume } = req.files;
   const allowedFormats = ["image/png", "image/jpeg", "image/webp"];
-  if (!allowedFormats.includes(resume.mimetype)) {
+  if (!allowedFormats.includes(resume.mimetype)) { // basically mimetype will give us the extension like, .png..
     return next(
-      new ErrorHandler("Invalid file type. Please upload a PNG file.", 400)
+      new ErrorHandler("Invalid file type. File should be in the format of .png or .jpeg or .webp", 400)
     );
   }
   const cloudinaryResponse = await cloudinary.uploader.upload(

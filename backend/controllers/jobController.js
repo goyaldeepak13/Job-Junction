@@ -2,9 +2,9 @@ import { catchAsyncErrors } from "../middlewares/catchAsyncError.js";
 import { Job } from "../models/jobSchema.js";
 import ErrorHandler from "../middlewares/error.js";
 
-export const getAllJobs = catchAsyncErrors(async (req, res, next) => {
-  const jobs = await Job.find({ expired: false });
-  res.status(200).json({
+export const getAllJobs = catchAsyncErrors(async (req, res, next) => { // req (the request object), res (the response object), and next (a callback function to pass control to the next middleware).
+  const jobs = await Job.find({ expired: false }); //not confirm, expired: false means we will be able to see only that jobs that we have not deleted if we write , expirte: true than we will be able to see the deleted job
+  res.status(200).json({ // This sends an HTTP response with a status code of 200 (OK) and a JSON object containing the data.
     success: true,
     jobs,
   });
@@ -14,7 +14,7 @@ export const postJob = catchAsyncErrors(async (req, res, next) => {
   const { role } = req.user;
   if (role === "Job Seeker") {
     return next(
-      new ErrorHandler("Job Seeker not allowed to access this resource.", 400)
+      new ErrorHandler("Job Seeker is not allowed to access this resource.", 400)
     );
   }
   const {
@@ -74,7 +74,7 @@ export const getMyJobs = catchAsyncErrors(async (req, res, next) => {
       new ErrorHandler("Job Seeker not allowed to access this resource.", 400)
     );
   }
-  const myJobs = await Job.find({ postedBy: req.user._id });
+  const myJobs = await Job.find({ postedBy: req.user._id }); // it measn we want only those jobs whose postedById is equal to user_id // because when we were creating a job we were also assigning the user_id to that post // so now we have user_id for every post so we can mathch the id and can find the post that is posted by loggid in user
   res.status(200).json({
     success: true,
     myJobs,
@@ -94,9 +94,9 @@ export const updateJob = catchAsyncErrors(async (req, res, next) => {
     return next(new ErrorHandler("OOPS! Job not found.", 404));
   }
   job = await Job.findByIdAndUpdate(id, req.body, {
-    new: true,
-    runValidators: true,
-    useFindAndModify: false,
+    new: true, // This option ensures that the method returns the updated document instead of the original one. By default, findByIdAndUpdate returns the original document unless specified otherwise.
+    runValidators: true, // Enabling this option applies schema validation rules to the update operation. It ensures that the updated data conforms to the schema's requirements.
+    useFindAndModify: false, // When you see useFindAndModify: false in the code, it's telling the database:    "Don't use the old way(useFindAndModify:true).": We don't want to take the document out and put it back in.  "Use the new way instead.": Change the document directly using the new, better method.
   });
   res.status(200).json({
     success: true,
