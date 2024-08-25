@@ -23,7 +23,7 @@ const App = () => {
     const fetchUser = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:4000/api/v1/user/getuser",
+          "https://job-junction-backend.onrender.com/api/v1/user/getuser",
           {
             withCredentials: true, // This option indicates that the request should include credentials, such as cookies or authentication headers.
           }

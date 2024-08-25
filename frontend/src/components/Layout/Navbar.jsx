@@ -13,7 +13,7 @@ const Navbar = () => {
   const handleLogout = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:4000/api/v1/user/logout",
+        "https://job-junction-backend.onrender.com/api/v1/user/logout",
         {
           withCredentials: true,// This option indicates that the request should include credentials, such as cookies or authentication headers.
         }
