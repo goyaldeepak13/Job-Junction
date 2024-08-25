@@ -15,7 +15,7 @@ config({ path: ".env" });
 app.use(// connectiong with frontend
   cors({
     origin: [process.env.FRONTEND_URL], //  we are using array because we can connect our backend with many frontends
-    method: ["GET", "POST", "DELETE", "PUT"],
+    methods: ["GET", "POST", "DELETE", "PUT"],
     credentials: true, //allow cookies 
   })
 );
