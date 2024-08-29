@@ -12,13 +12,27 @@ import fileUpload from "express-fileupload";
 const app = express();
 config({ path: ".env" });
 
-app.use(// connectiong with frontend
-  cors({
-    origin: [process.env.FRONTEND_URL], //  we are using array because we can connect our backend with many frontends
-    methods: ["GET", "POST", "DELETE", "PUT"],
-    credentials: true, //allow cookies 
-  })
-);
+app.use(cors());
+app.use(function (req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header(
+    "Access-Control-Allow-Methods",
+    "GET,HEAD,OPTIONS,POST,PUT,DELETE"
+  );
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept, Authorization"
+  );
+  next();
+});
+
+// app.use(// connectiong with frontend
+//   cors({
+//     origin: [process.env.FRONTEND_URL], //  we are using array because we can connect our backend with many frontends
+//     methods: ["GET", "POST", "DELETE", "PUT"],
+//     credentials: true, //allow cookies 
+//   })
+// );
 
 app.use(cookieParser());
 app.use(express.json());
