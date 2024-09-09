@@ -36,7 +36,7 @@ config({ path: ".env" });
 
 app.use(
   cors({
-    origin: ["*"],
+    origin: ["https://job-junction-frontend.onrender.com"],
     methods: ["*"],
     credentials: true,
   })
