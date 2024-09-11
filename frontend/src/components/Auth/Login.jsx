@@ -13,10 +13,12 @@ const Login = () => {
   const [role, setRole] = useState("");
 
   const { isAuthorized, setIsAuthorized } = useContext(Context);
+  console.log("hi")
 
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
+      console.log({ email, password, role });  
       const { data } = await axios.post(
         "https://job-junction-backend.onrender.com/api/v1/user/login",
         { email, password, role },
@@ -24,15 +26,17 @@ const Login = () => {
           headers: {
             "Content-Type": "application/json",
           },
-          // withCredentials: true,
+          withCredentials: true,
         }
       );
+      console.log(data); 
       toast.success(data.message);
       setEmail("");
       setPassword("");
       setRole("");
       setIsAuthorized(true);
     } catch (error) {
+      console.log(error.response);
       toast.error(error.response.data.message);
     }
   };
