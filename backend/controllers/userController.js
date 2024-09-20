@@ -24,12 +24,13 @@ export const register = catchAsyncErrors(async (req, res, next) => {
 
 export const login = catchAsyncErrors(async (req, res, next) => {
   const { email, password, role } = req.body;
+  console.log(email, password, role)
   if (!email || !password || !role) {
     return next(new ErrorHandler("Pleas fill the email, password and role!"));
   }
   const user = await User.findOne({ email }).select("+password"); // The + sign is used with .select() to explicitly include a field that is excluded by default. Here, it adds the password field to the query result.  // This is necessary because you need to compare the hashed password stored in the database with the password provided by the user during login.
   if (!user) {
-    return next(new ErrorHandler("Invalid Email Or Password.", 400));
+    return next(new ErrorHandler("User Not found !", 404));
   }
   const isPasswordMatched = await user.comparePassword(password);
   if (!isPasswordMatched) {
