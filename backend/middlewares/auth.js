@@ -6,6 +6,8 @@ import jwt from "jsonwebtoken";
 // The isAuthenticated middleware verifies the token's validity.
 export const isAuthenticated = catchAsyncErrors(async (req, res, next) => {
   const { token } = req.cookies;
+  console.log("New Request !! ")
+  console.log(`${token}`);
   if (!token) {
     return next(new ErrorHandler("User Not Authorized", 401));
   }
